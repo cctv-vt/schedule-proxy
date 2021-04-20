@@ -15,6 +15,7 @@ app.get('/', (req, res) => {
         console.log(rawResponse)
         xml2js.parseString(rawResponse.data, function (err, result) {
             console.log(result)
+            res.header("Access-Control-Allow-Origin", "*");
             res.send(result)
         });
     })
