@@ -11,15 +11,16 @@ const app = express()
 app.use(favicon(path.join(__dirname, 'favicon.ico')))
 
 app.get('/:path', (req, res) => {
-    axios.get("https://mc.retn.org/xml/" + req.params.path).then((rawResponse, err) => {
+    console.log(req.url)
+    axios.get("https://mc.retn.org/xml" + req.url).then((rawResponse, err) => {
         let xml = rawResponse.data
-        console.log(xml)
+        // console.log(xml)
         xml2js.parseString(xml,{
             tagNameProcessors: [tagSanitizer],
             attrValueProcessors: []
         }, (err, result) => {
             if (err) console.error(err)
-            console.log(result)
+            // console.log(result)
             res.header("Access-Control-Allow-Origin", "*");
             res.send(result)
         });
@@ -27,7 +28,7 @@ app.get('/:path', (req, res) => {
 })
 
 let tagSanitizer = (name) => {
-    console.log(name.replace("psg:","psg_")) 
+    // console.log(name.replace("psg:","psg_")) 
     return name.replace("psg:","psg_")
 }
 
