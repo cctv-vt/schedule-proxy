@@ -10,8 +10,8 @@ const app = express()
 
 app.use(favicon(path.join(__dirname, 'favicon.ico')))
 
-app.get('/', (req, res) => {
-    axios.get("https://mc.retn.org/xml/program_schedule_feed?channel_id=" + channel).then((rawResponse, err) => {
+app.get('/:path', (req, res) => {
+    axios.get("https://mc.retn.org/xml/" + req.params.path).then((rawResponse, err) => {
         let xml = rawResponse.data
         console.log(xml)
         xml2js.parseString(xml,{
