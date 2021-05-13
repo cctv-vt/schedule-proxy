@@ -10,7 +10,7 @@ app.use(favicon(path.join(__dirname, 'favicon.ico')))
 
 app.get('/:path', (req, res) => {
   console.log(req.url)
-  axios.get('https://mc.retn.org/xml' + req.url).then((rawResponse, err) => {
+  axios.get('https://hc1.mediafactory.org/xml' + req.url).then((rawResponse, err) => {
     const xml = rawResponse.data
     // console.log(xml)
     xml2js.parseString(xml, {
