@@ -11,7 +11,7 @@ const app = express()
 app.use(favicon(path.join(__dirname, 'favicon.ico')))
 
 app.get('/:path', (req, res) => {
-    axios.get("https://mc.retn.org/xml/" + req.params.path).then((rawResponse, err) => {
+    axios.get("https://hc1.mediafactory.org/xml/" + req.params.path).then((rawResponse, err) => {
         let xml = rawResponse.data
         console.log(xml)
         xml2js.parseString(xml,{
