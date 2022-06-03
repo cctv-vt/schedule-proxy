@@ -11,21 +11,20 @@ app.use(favicon(path.join(__dirname, 'favicon.ico')))
 app.get('/:path', (req, res) => {
   console.log(req.url)
   axios.get('https://hc1.mediafactory.org/xml' + req.url).then((rawResponse, err) => {
-    if (err) {
-      res.header('Access-Control-Allow-Origin', '*')
-      res.send(err)
-    }
     const xml = rawResponse.data
     // console.log(xml)
-    xml2js.parseString(xml, {
-      tagNameProcessors: [tagSanitizer],
-      attrValueProcessors: []
-    }, (err, result) => {
-      if (err) console.error(err)
-      // console.log(result)
+      xml2js.parseString(xml, {
+        tagNameProcessors: [tagSanitizer],
+        attrValueProcessors: []
+      }, (err, result) => {
+        if (err) console.error(err)
+        // console.log(result)
+        res.header('Access-Control-Allow-Origin', '*')
+        res.send(result)
+      })
+  }).catch(err => {
       res.header('Access-Control-Allow-Origin', '*')
-      res.send(result)
-    })
+      res.send(err)
   })
 })
 
